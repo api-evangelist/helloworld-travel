@@ -1,0 +1,481 @@
+aid: helloworld-travel
+name: Helloworld Travel
+review:
+  question: Does Helloworld Travel Limited publish any public, documented API or machine-readable
+    API contract?
+  answer: false
+  date: '2026-07-28'
+  reviewer: API Evangelist
+  tier: ota-metasearch
+  homeMarket: Australia
+  primaryDomain: helloworldlimited.com.au
+findings:
+  summary: |
+    Helloworld Travel Limited publishes no public API. No developer portal, no API
+    reference, no OpenAPI/Swagger/AsyncAPI/Postman artifact, and no /.well-known
+    descriptor was found on the corporate domain, the consumer domain, or any of the
+    brand domains probed on 2026-07-28. Every trade-facing system in the group is an
+    agent-login web application: ReadyRooms (athena.readyrooms.com.au), AOTonline.net,
+    Air Tickets and Express Tickets.
+
+    One genuinely provisioned developer host exists — https://developer.readyrooms.com.au/
+    — but it answers HTTP 401 with `WWW-Authenticate: Basic realm="Access is permitted
+    to authorized users"` on every path probed, including /, /docs, /api, /swagger.json,
+    /openapi.json and /.well-known/security.txt. It has its own DNS A record on the same
+    address as www.readyrooms.com.au (159.60.137.97) and is covered by the wildcard
+    certificate *.readyrooms.com.au, while invented subdomains (zzznotreal, apidocs,
+    swagger) do not resolve at all. That rules out a wildcard catch-all: the host was
+    deliberately created, and its contents are not published.
+
+    The consumer site www.helloworld.com.au no longer runs an online booking engine —
+    it redirects to /Find-Your-Agent.html, a find-an-agent and request-a-call page. The
+    corporate site is WordPress; its only machine-readable surface is the generic
+    /wp-json/contact-form-7/v1 CMS namespace, which is infrastructure, not a product API,
+    and is not listed in apis.yml.
+
+    apis[] is therefore empty. That is the correct and expected result for this provider.
+  organization:
+    legalName: Helloworld Travel Limited
+    listing: ASX:HLO
+    headquarters: Sydney, Australia
+    staff: more than 700 across Australia, New Zealand, Fiji and Europe (per about-us page)
+    retailMembers: over 2,700 retail members across Australia and New Zealand (per about-us page)
+    segments:
+    - Retail
+    - Wholesale
+    - Inbound
+    - Air Consolidation
+    - Tour Operating
+  productFamily:
+    note: |
+      Helloworld's real segmentation is by trade channel, not by API resource. There is
+      no published API family. The functional surfaces below are web applications used by
+      travel agents; the segmentation is taken verbatim from Helloworld's own brand pages.
+    surfaces:
+    - name: ReadyRooms
+      capability: availability and rates, hotel and activity search, booking
+      quote: A B2B online search and booking system operated by Helloworld Travel Limited.
+        It allows agents the ability to search, compare and book an extensive range of
+        international and domestic accommodation as well as activities including transfers,
+        whether on the same day or up to one year in advance.
+      source: https://www.helloworldlimited.com.au/wholesale-brands/
+      access: agent login at https://athena.readyrooms.com.au/ and https://www.readyrooms.com.au/
+    - name: AOTonline.net
+      capability: inbound trade shopping, quoting and booking of accommodation, transfers,
+        car hire, tours, rail, attractions, fly-drives and packages
+      quote: AOT Inbound has also developed one of the most sophisticated travel trade
+        booking engines in the world, AOTonline.net.
+      source: https://www.helloworldlimited.com.au/inbound-brands/
+      access: agency-code login; "Request an Agent Login? If you are registering online
+        or changing your password, we will respond to your request during business hours
+        within 24 hours."
+    - name: Air Tickets / SmartTickets
+      capability: fulfilment and ticketing, reissues, refunds, revalidations, post-ticketing
+        processing for more than 100 international airlines
+      quote: SmartTickets is the industry leader in ticketing facilities. Its advanced
+        functionality delivers a user-friendly 'point and click' system to enable travel
+        consultants to complete ticketing, reissues, refunds and revalidations online.
+      source: https://www.helloworldlimited.com.au/consolidation-brands/
+      access: agent login at https://www.airtickets.com.au/
+    - name: Express Tickets
+      capability: airfare and airline ticketing consolidation for agencies, tour operators
+        and OTAs
+      source: https://www.helloworldlimited.com.au/consolidation-brands/
+      access: agent login at https://expresstickets.com.au/
+switchingCost:
+  interfaceShape:
+    value: none-published
+    standardNamed: none
+    evidence: |
+      No standard is referenced anywhere in Helloworld's public material. No IATA NDC,
+      no OpenTravel/OTA XML, no HTNG, no OAuth-based REST contract, no OpenAPI. Nothing
+      is published, so there is no interface for a third party to conform to, mirror or
+      replace. The one provisioned developer host (developer.readyrooms.com.au) is behind
+      HTTP Basic auth, so even the shape of the ReadyRooms partner interface is unknown
+      from outside.
+    probed:
+    - url: https://developer.readyrooms.com.au/
+      status: 401
+      note: 'WWW-Authenticate: Basic realm="Access is permitted to authorized users"'
+    - url: https://developer.readyrooms.com.au/swagger.json
+      status: 401
+    - url: https://developer.readyrooms.com.au/openapi.json
+      status: 401
+    - url: https://developer.readyrooms.com.au/docs
+      status: 401
+    - url: https://developer.readyrooms.com.au/api
+      status: 401
+    - url: https://developer.readyrooms.com.au/.well-known/security.txt
+      status: 401
+  secondSource:
+    value: alternatives-with-migration
+    alternativesConsidered: |
+      For an Australian or New Zealand agency, every capability Helloworld sells can be
+      obtained elsewhere, but not by swapping a connector — there is no connector to swap.
+      Considered: WebBeds (Webjet Group) and Hotelbeds for B2B hotel supply against
+      ReadyRooms; Expedia TAAP and Booking.com for Business as agent-facing hotel
+      alternatives; Consolidated Travel and CVFR as competing Australian air consolidators
+      against Air Tickets, Express Tickets and SmartTickets; Flight Centre Independent,
+      Travellers Choice, TravelManagers and Savenio as competing agency network / franchise
+      memberships against the Helloworld Travel, My Travel Group, Magellan and MTA networks;
+      Corporate Travel Management and FCM against Helloworld Business Travel. None of these
+      shares an interface with Helloworld, so a move is a commercial and operational
+      project — renegotiating supplier terms, rebranding an agency, retraining consultants
+      and re-keying stored bookings — not a technical migration.
+  exitPath:
+    value: export-on-request
+    operationCited: none
+    evidence: |
+      No export, dump, bulk or data-portability operation is documented anywhere. The only
+      documented route to get data back is a personal-information access request under the
+      Australian Privacy Act. Verbatim from the privacy policy: "You may ask Helloworld for
+      access to any personal information we hold about you, subject to some exceptions in
+      the Privacy Act." Requests go to privacyofficer@helloworld.com.au, by phone on
+      03 9867 7233, or by post, and identity verification is required first. The policy
+      does not address data portability or deletion, and makes no GDPR commitment. It covers
+      Helloworld Travel Limited plus around twenty related brands including Helloworld
+      Services, helloworld online, Magellan Travel, Skiddoo, Air Tickets, Smart Tickets,
+      Sunlover Holidays, Cruise Factory, Readyrooms and Go Holidays.
+    source: https://policies.helloworldlimited.com.au/privacy-policy/
+  identifierPortability:
+    value: proprietary agency codes dominate; IATA/TAANZ accreditation numbers and IATA
+      airline codes are the only portable keys
+    evidence: |
+      AOTonline authenticates on a Helloworld-issued "Agency Code" plus an agency password
+      and a consultant name — a vendor-internal identifier that does not travel. ReadyRooms
+      authenticates on an email address against its own account store and exposes no public
+      identifier scheme. The only industry identifiers visible in Helloworld's public
+      material are trade accreditations: The Travel Brokers network is described as holding
+      "both TAANZ & IATA accreditation", and the air consolidation business is built around
+      IATA airline ticketing for "more than 100 international airlines". No PNR record
+      locator format, no GDS record ID, no hotel chain code, and no GIATA ID is exposed
+      publicly. Bookings made in ReadyRooms or AOTonline hang on opaque internal quote and
+      booking IDs (list_quotes.php, list_bookings.php), which are worthless outside the
+      system that issued them.
+  contractualLockIn:
+    value: revocable non-transferable licence, export forbidden without written consent,
+      rates may not be re-uploaded to any online booking site; franchise and membership
+      terms unpublished
+    verbatim:
+    - quote: Helloworld Travel grants you a limited, personal, non-transferable, revocable
+        licence to access and use the Site only as expressly permitted by these terms and
+        conditions.
+      source: https://www.helloworldlimited.com.au/terms-of-use/
+      note: clause 2, USING THIS WEBSITE
+    - quote: Except to the extent permitted by relevant legislation, you must not use,
+        export, copy, modify, transmit, store, publish or distribute the material on the
+        Site, or create any other material using material on the Site, without obtaining
+        our prior written consent.
+      source: https://www.helloworldlimited.com.au/terms-of-use/
+      note: clause 8, INTELLECTUAL PROPERTY
+    - quote: We may terminate this agreement or your ability to access this Site and/or
+        any other service provided to you by us and any other agreement between us,
+        immediately if you breach any of the terms and conditions on this page.
+      source: https://www.helloworldlimited.com.au/terms-of-use/
+      note: clause 18, TERMINATION
+    - quote: The rates provided in this website cannot be used for up-loading on any
+        internet online-booking website without prior written authorisation.
+      source: https://www.aotonline.net/terms_conds.php
+    - quote: The AOT Group P/L reserves the right to refuse any bookings at these rates
+        which might be generated by unauthorised websites.
+      source: https://www.aotonline.net/terms_conds.php
+    notPublished: |
+      No franchise agreement, membership agreement, minimum term, exclusivity clause,
+      segment fee, termination notice period or full-content commitment is published.
+      The franchisees page describes eleven Australian and five New Zealand networks and
+      offers "established systems, software and support", then routes to a contact form.
+      Nothing about fees, exclusivity, minimum terms or how a member exits is disclosed.
+      No commercial terms are inferred here.
+    source: https://www.helloworldlimited.com.au/franchisees/
+  accessGate:
+    value: partner-only
+    whatADeveloperMustDo: |
+      There is no developer route at all. To reach any Helloworld system you must first be
+      a travel trade partner. ReadyRooms access is requested through a Microsoft Forms
+      application linked from the login page ("Sign up"); AOTonline issues an Agency Code
+      after a manual request ("we will respond to your request during business hours within
+      24 hours"). Credentials for developer.readyrooms.com.au are HTTP Basic and are not
+      obtainable through any published process — no signup, no application form, no terms
+      to accept, no rate card. Nothing is signed publicly because nothing public is offered.
+    agentPortalMechanism: application-approval for trade agencies
+  distributionModel:
+    value: aggregator-reseller
+    evidence: |
+      Helloworld is a demand-side intermediary, not an inventory owner. Retail and corporate
+      networks resell supplier content to travellers; wholesale brands (Viva Holidays,
+      Sunlover Holidays, Territory Discoveries, GO Holidays, Creative Cruising, Cruiseco,
+      ReadyRooms) package third-party product for agents; the inbound division (AOT Inbound,
+      AOT NZ, ATS Pacific, Experience Tours Australia) aggregates Australian, New Zealand
+      and South Pacific land product for offshore wholesalers; the air consolidation division
+      (Air Tickets, Express Tickets, SmartTickets) intermediates airline ticketing for more
+      than 100 carriers. Air content flows through GDS-based consolidation and ticketing, so
+      Helloworld is a consumer of GDS intermediation rather than a party that is itself
+      GDS-distributed.
+  ndcPosture:
+    value: not an airline; no public NDC statement, certification claim or NDC endpoint found
+    evidence: |
+      Helloworld is an agency and consolidation group, not a carrier, so it holds no NDC
+      capability level of its own. No mention of NDC, New Distribution Capability, Offers
+      and Orders, or an NDC aggregation partner appears anywhere on helloworldlimited.com.au,
+      the consumer site, or the trade portals probed. Australian peers do publish an NDC
+      position — Corporate Travel Management maintains a public NDC page — which makes the
+      silence here a finding rather than an absence of the concept in the market.
+sources:
+- url: https://www.helloworldlimited.com.au/
+  status: 200
+  type: Website
+  fetched: '2026-07-28'
+  note: corporate site, WordPress; nav yields brand division pages and investor centre
+- url: https://www.helloworldlimited.com.au/about-us/
+  status: 200
+  type: About
+  fetched: '2026-07-28'
+  note: "\"a travel-distribution company headquartered in Australia\"; 700+ staff; 2,700+\
+    \ retail members"
+- url: https://www.helloworldlimited.com.au/brand-divisions/
+  status: 200
+  type: About
+  fetched: '2026-07-28'
+- url: https://www.helloworldlimited.com.au/retail-brands/
+  status: 200
+  type: About
+  fetched: '2026-07-28'
+- url: https://www.helloworldlimited.com.au/wholesale-brands/
+  status: 200
+  type: About
+  fetched: '2026-07-28'
+  note: source of the verbatim ReadyRooms description
+- url: https://www.helloworldlimited.com.au/inbound-brands/
+  status: 200
+  type: About
+  fetched: '2026-07-28'
+  note: source of the verbatim AOTonline.net description
+- url: https://www.helloworldlimited.com.au/consolidation-brands/
+  status: 200
+  type: About
+  fetched: '2026-07-28'
+  note: source of the verbatim SmartTickets description
+- url: https://www.helloworldlimited.com.au/tour-operating-brands/
+  status: 200
+  type: About
+  fetched: '2026-07-28'
+- url: https://www.helloworldlimited.com.au/franchisees/
+  status: 200
+  type: Partners
+  fetched: '2026-07-28'
+  note: no fees, terms, exclusivity or exit procedure published
+- url: https://www.helloworldlimited.com.au/terms-of-use/
+  status: 200
+  type: TermsOfService
+  fetched: '2026-07-28'
+- url: https://policies.helloworldlimited.com.au/privacy-policy/
+  status: 200
+  type: PrivacyPolicy
+  fetched: '2026-07-28'
+- url: https://policies.helloworldlimited.com.au/cookies-policy/
+  status: 200
+  type: CookiePolicy
+  fetched: '2026-07-28'
+- url: https://www.helloworld.com.au/
+  status: 200
+  type: ConsumerWebsite
+  fetched: '2026-07-28'
+  note: redirects to https://www.helloworld.com.au/Find-Your-Agent.html; no online booking
+    engine, no public API
+- url: https://www.readyrooms.com.au/
+  status: 200
+  type: PartnerLogin
+  fetched: '2026-07-28'
+  note: agent login only
+- url: https://athena.readyrooms.com.au/
+  status: 200
+  type: PartnerLogin
+  fetched: '2026-07-28'
+  note: 'agent login; "Sign up" links to a Microsoft Forms application'
+- url: https://developer.readyrooms.com.au/
+  status: 401
+  type: GatedDeveloperHost
+  fetched: '2026-07-28'
+  note: 'HTTP Basic; realm "Access is permitted to authorized users"; distinct DNS A record
+    159.60.137.97; covered by wildcard cert *.readyrooms.com.au; invented sibling subdomains
+    do not resolve'
+- url: https://www.aotonline.net/index.php
+  status: 200
+  type: PartnerLogin
+  fetched: '2026-07-28'
+  note: Agency Code + Agency Password + Consultant login; "Request an Agent Login?" handled
+    manually within 24 hours
+- url: https://www.aotonline.net/terms_conds.php
+  status: 200
+  type: TermsOfService
+  fetched: '2026-07-28'
+  note: rate re-upload prohibition
+- url: https://www.airtickets.com.au/
+  status: 200
+  type: PartnerLogin
+  fetched: '2026-07-28'
+  note: agent login; site returns HTTP 200 with an empty body for every unknown path
+    (soft 404), so /openapi.json, /swagger.json, /api-docs and /developers are false
+    positives and were confirmed empty
+- url: https://expresstickets.com.au/
+  status: 200
+  type: PartnerLogin
+  fetched: '2026-07-28'
+- url: https://vivaholidays.com.au/
+  status: 200
+  type: BrandWebsite
+  fetched: '2026-07-28'
+- url: https://www.helloworldbusinesstravel.com/
+  status: 200
+  type: BrandWebsite
+  fetched: '2026-07-28'
+  note: reached via https://hwfb.com.au/
+- url: https://www.linkedin.com/company/helloworld-com-au/
+  status: 200
+  type: LinkedIn
+  fetched: '2026-07-28'
+- url: https://en.wikipedia.org/wiki/Helloworld_Travel
+  status: 200
+  type: Reference
+  fetched: '2026-07-28'
+probes:
+  note: every URL below was requested on 2026-07-28 with a desktop browser user agent,
+    following redirects; status is the final HTTP status
+  negative:
+  - url: https://developer.helloworldlimited.com.au/
+    status: 404
+  - url: https://developers.helloworldlimited.com.au/
+    status: 404
+  - url: https://api.helloworldlimited.com.au/
+    status: 404
+  - url: https://docs.helloworldlimited.com.au/
+    status: 404
+  - url: https://developer.helloworld.com.au/
+    status: 000
+    note: does not resolve
+  - url: https://developers.helloworld.com.au/
+    status: 000
+    note: does not resolve
+  - url: https://api.helloworld.com.au/
+    status: 000
+    note: does not resolve
+  - url: https://docs.helloworld.com.au/
+    status: 000
+    note: does not resolve
+  - url: https://www.helloworldlimited.com.au/openapi.json
+    status: 404
+  - url: https://www.helloworldlimited.com.au/swagger.json
+    status: 404
+  - url: https://www.helloworldlimited.com.au/api-docs
+    status: 404
+  - url: https://www.helloworldlimited.com.au/api
+    status: 404
+  - url: https://www.helloworldlimited.com.au/docs
+    status: 404
+  - url: https://www.helloworldlimited.com.au/developers
+    status: 404
+  - url: https://www.helloworldlimited.com.au/developer
+    status: 404
+  - url: https://www.helloworldlimited.com.au/.well-known/openapi.json
+    status: 404
+  - url: https://www.helloworldlimited.com.au/.well-known/ai-plugin.json
+    status: 404
+  - url: https://www.helloworldlimited.com.au/.well-known/security.txt
+    status: 404
+  - url: https://www.helloworldlimited.com.au/robots.txt
+    status: 404
+  - url: https://www.helloworldlimited.com.au/sitemap.xml
+    status: 404
+  - url: https://www.helloworld.com.au/openapi.json
+    status: 200
+    note: soft 404 — redirects to /global/404?default and returns the 404 page
+  - url: https://www.helloworld.com.au/swagger.json
+    status: 200
+    note: soft 404
+  - url: https://www.helloworld.com.au/api-docs
+    status: 200
+    note: soft 404
+  - url: https://www.helloworld.com.au/developers
+    status: 200
+    note: soft 404
+  - url: https://www.helloworld.com.au/.well-known/openapi.json
+    status: 200
+    note: soft 404
+  - url: https://www.readyrooms.com.au/openapi.json
+    status: 404
+  - url: https://www.readyrooms.com.au/swagger.json
+    status: 404
+  - url: https://www.readyrooms.com.au/api-docs
+    status: 404
+  - url: https://www.readyrooms.com.au/developers
+    status: 404
+  - url: https://www.readyrooms.com.au/.well-known/security.txt
+    status: 404
+  - url: https://www.aotonline.net/openapi.json
+    status: 404
+  - url: https://www.aotonline.net/swagger.json
+    status: 404
+  - url: https://www.aotonline.net/.well-known/openapi.json
+    status: 404
+  - url: https://www.aotonline.net/.well-known/ai-plugin.json
+    status: 404
+  - url: https://www.airtickets.com.au/openapi.json
+    status: 200
+    note: soft 404 — HTTP 200 with a zero-byte body, no content-type; confirmed empty
+  - url: https://www.airtickets.com.au/swagger.json
+    status: 200
+    note: soft 404, zero-byte body
+  - url: https://www.airtickets.com.au/developers
+    status: 200
+    note: soft 404, zero-byte body
+  - url: https://vivaholidays.com.au/openapi.json
+    status: 404
+  - url: https://vivaholidays.com.au/swagger.json
+    status: 404
+  - url: https://vivaholidays.com.au/.well-known/security.txt
+    status: 404
+  - url: https://www.helloworldbusinesstravel.com/openapi.json
+    status: 404
+  - url: https://www.helloworldbusinesstravel.com/swagger.json
+    status: 404
+  - url: https://www.helloworldbusinesstravel.com/.well-known/security.txt
+    status: 404
+  - url: https://etg.travel/.well-known/openapi.json
+    status: 404
+  - url: https://etg.travel/developers
+    status: 403
+  - url: https://api.github.com/orgs/helloworld-travel
+    status: 404
+    note: no GitHub organization
+  - url: https://api.github.com/orgs/helloworldtravel
+    status: 404
+    note: no GitHub organization
+  subdomainSweep:
+    pattern: developer|developers|api|docs|xml|b2b prefixed onto airtickets.com.au,
+      expresstickets.com.au, etg.travel, mytravelgroup.com.au, mtatravel.com.au,
+      vivaholidays.com.au, aotonline.net, helloworldbusinesstravel.com
+    result: none resolved (all status 000)
+  wildcardControl:
+    tested:
+    - zzznotreal.readyrooms.com.au
+    - apidocs.readyrooms.com.au
+    - swagger.readyrooms.com.au
+    result: no DNS record, status 000 — confirming developer.readyrooms.com.au is a
+      deliberately provisioned host and not a wildcard catch-all
+artifacts:
+  openapi: []
+  asyncapi: []
+  postman: []
+  graphql: []
+  note: nothing machine-readable was found, so no openapi/ directory was created. The
+    only JSON namespace on any Helloworld property is the generic WordPress
+    /wp-json/contact-form-7/v1 endpoint on the corporate site, which is CMS
+    infrastructure rather than a product API and is deliberately not listed.
+actions:
+  apisYmlCreated: true
+  apisListed: 0
+  reason: |
+    apis[] is empty because Helloworld Travel Limited publishes no documented public
+    API. Listing an agent login page as an API would be fabrication. The bootstrap
+    records identity, the real trade surfaces and their gates, and the switching-cost
+    evidence, and leaves apis[] empty until Helloworld publishes a contract.

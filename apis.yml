@@ -1,0 +1,63 @@
+aid: helloworld-travel
+url: https://raw.githubusercontent.com/api-evangelist/helloworld-travel/refs/heads/main/apis.yml
+name: Helloworld Travel
+kind: company
+description: >-
+  Helloworld Travel Limited (ASX: HLO) is an Australian travel distribution
+  group headquartered in Sydney, operating retail agency networks, corporate travel,
+  wholesale packaging, air ticket consolidation and inbound tour operations across
+  Australia, New Zealand, Fiji and Europe with more than 700 staff and over 2,700
+  retail members. It sits on the demand side of the travel distribution chain — an
+  aggregator and reseller of third-party air, hotel and land content rather than an
+  inventory owner — reaching travellers through its member agencies and reaching air
+  supply through GDS-based consolidation and ticketing (Air Tickets, Express Tickets,
+  SmartTickets). Its API posture is closed. There is no public developer portal, no
+  OpenAPI, Swagger, AsyncAPI or Postman artifact, and no machine-readable contract
+  of any kind. Every trade system is behind an agent login — ReadyRooms (B2B hotel
+  and activity booking), AOTonline.net (inbound trade booking engine), Air Tickets
+  and Express Tickets. A developer host is provisioned at developer.readyrooms.com.au
+  but returns HTTP 401 with a Basic auth challenge on every path probed, so access
+  is partner-only. There is no published exit path — the only documented way to get
+  data back is a Privacy Act access request to the Helloworld Privacy Officer.
+image: https://www.helloworldlimited.com.au/wp-content/uploads/2018/10/helloworld_limited_favicon.png
+tags:
+- Travel
+- Australia
+- New Zealand
+- Travel Agency
+- Distribution
+- Corporate Travel
+- Wholesale
+- Hotels
+- Booking
+- Air Consolidation
+- Inbound Tourism
+- Tour Operator
+created: '2026-07-28'
+modified: '2026-07-28'
+specificationVersion: '0.19'
+apis: []
+common:
+- type: Website
+  url: https://www.helloworldlimited.com.au/
+- type: ConsumerWebsite
+  url: https://www.helloworld.com.au/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/helloworld-com-au/
+- type: TermsOfService
+  url: https://www.helloworldlimited.com.au/terms-of-use/
+- type: PrivacyPolicy
+  url: https://policies.helloworldlimited.com.au/privacy-policy/
+- type: CookiePolicy
+  url: https://policies.helloworldlimited.com.au/cookies-policy/
+- type: InvestorRelations
+  url: https://www.helloworldlimited.com.au/investors/
+- type: AnnualReports
+  url: https://www.helloworldlimited.com.au/annual-reports/
+- type: Contact
+  url: https://www.helloworldlimited.com.au/contact/
+- type: Blog
+  url: https://www.helloworldlimited.com.au/feed/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
