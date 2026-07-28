@@ -50,6 +50,29 @@ The group's real product surfaces are agent-login web applications, recorded in 
 | Distribution model | `aggregator-reseller`, consuming GDS intermediation for air rather than being GDS-distributed |
 | NDC posture | Not an airline; no NDC statement, certification claim or endpoint found anywhere |
 
+## Artifacts
+
+Enrichment round 2026-07-28 re-ran contract discovery against every corporate, consumer and trade host and confirmed the round-one finding: there is no machine-readable contract. The artifacts below are the evidence of that, not a substitute for it. Nothing here is derived from an OpenAPI, because there is none.
+
+| Artifact | What it records |
+| --- | --- |
+| [`well-known/helloworld-travel-well-known.yml`](well-known/helloworld-travel-well-known.yml) | Full `/.well-known/` probe matrix across ten hosts. Zero discovery documents. Every HTTP 200 is byte-compared against a control request and marked `real_document: false` where it is a soft 404 — three hosts in this estate answer 200 for any path. |
+| [`well-known/helloworld-travel-aotonline-robots.txt`](well-known/helloworld-travel-aotonline-robots.txt) | The one genuinely served discovery file in the whole estate, saved verbatim from the AOTonline booking engine. |
+| [`security/helloworld-travel-domain-security.yml`](security/helloworld-travel-domain-security.yml) | TLS, HSTS, DNSSEC, CAA, SPF and DMARC across nine hosts and six domains. |
+| [`conformance/helloworld-travel-conformance.yml`](conformance/helloworld-travel-conformance.yml) | Negative conformance record — OpenAPI, AsyncAPI, GraphQL, OAuth2, OIDC, RFC 9116, IATA NDC, OpenTravel/OTA and HTNG all absent; IATA/TAANZ accreditation and the Australian Privacy Act are the two things Helloworld genuinely binds itself to. |
+| [`lifecycle/helloworld-travel-lifecycle.yml`](lifecycle/helloworld-travel-lifecycle.yml) | No versioning scheme, deprecation policy, Sunset header, SLA, changelog or status page. The ASX continuous-disclosure feed is recorded as the group's only obligation-backed change channel. |
+| [`llms/helloworld-travel-llms.txt`](llms/helloworld-travel-llms.txt) | Generated `llms.txt` telling an agent plainly what it can and cannot do here, so it does not hunt for an integration surface that is not there. |
+
+Not produced, and why: no `openapi/`, `asyncapi/`, `graphql/`, `mcp/`, `skills/`, `errors/`, `scopes/`, `authentication/`, `conventions/`, `data-model/`, `overlays/`, `sandbox/`, `cli/`, `components/`, `changelog/` or `agentic-access/` — every one of those either requires a spec to derive from or a published surface to capture, and Helloworld has neither. No `packages/` — npm, PyPI and GitHub were searched for first-party client libraries and organisations under the Helloworld, ReadyRooms, AOT, Air Tickets and Express Tickets names; nothing exists. No `security/*-vulnerability-disclosure.yml` or `security/*-trust-center.yml` — the probe found no security.txt, no disclosure page, no bug bounty and no trust centre. The Whistleblower Policy on the corporate governance page is a Corporations Act misconduct channel and is deliberately **not** recorded as a vulnerability disclosure programme.
+
+### Security posture, in one line
+
+Every host negotiates TLS 1.3 and all but `expresstickets.com.au` send HSTS with a one-year max-age; email authentication is uneven — the four traveller- and agent-facing brand domains publish SPF plus a delegated DMARC at `p=reject`, while the corporate domain `helloworldlimited.com.au` publishes SPF and no DMARC at all, and `aotonline.net`, the inbound trade booking engine, publishes neither. No domain in the estate is DNSSEC-signed.
+
+### Third-party claims, not treated as evidence
+
+Four travel-tech integrators (Pratra, Trawex, TechnoHeaven, BookingXML) list "AOT Group" as a connectable hotel supplier and describe dynamic accommodation rates "supplied via XML connections". That corroborates a private partner XML interface behind the trade relationship. None publishes a schema, endpoint, WSDL, message set or standard name, and none links to AOT-owned documentation. It is recorded in `conformance/` as an unverified third-party claim and **no artifact is derived from it**.
+
 ## Common Properties
 
 - [Website](https://www.helloworldlimited.com.au/)
@@ -62,6 +85,10 @@ The group's real product surfaces are agent-login web applications, recorded in 
 - [Annual Reports](https://www.helloworldlimited.com.au/annual-reports/)
 - [Contact](https://www.helloworldlimited.com.au/contact/)
 - [Blog](https://www.helloworldlimited.com.au/feed/)
+- [About](https://www.helloworldlimited.com.au/about-us/)
+- [Careers](https://www.helloworldlimited.com.au/careers/)
+- [Partners / Franchisees](https://www.helloworldlimited.com.au/franchisees/)
+- [ASX Announcements](https://www.helloworldlimited.com.au/asx-announcements/)
 
 ## Maintainers
 

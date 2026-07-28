@@ -1,0 +1,74 @@
+generated: '2026-07-28'
+method: searched
+source: >-
+  Helloworld Travel Limited corporate site, policy host and trade portals, searched and probed
+  2026-07-28
+summary: >-
+  Helloworld publishes no API lifecycle at all — no versioning scheme, no deprecation policy, no
+  Sunset or Deprecation header contract, no SLA or uptime commitment, no API changelog and no
+  status page. That is the expected consequence of having no public API: there is no versioned
+  contract for a lifecycle to govern. What Helloworld does publish, as an ASX-listed entity, is a
+  corporate disclosure lifecycle — continuous disclosure through ASX announcements, half-year and
+  full-year results, and annual reports — governed by a Continuous Disclosure Policy and a
+  Shareholder Communications Policy. That is the only dated, obligation-backed change feed the
+  group operates, and it is recorded here so the absence on the API side is not confused with an
+  absence of governance generally. A partner integrating with ReadyRooms, AOTonline, Air Tickets
+  or Express Tickets has no published notice period, no change log and no deprecation commitment
+  to rely on; change is communicated through the trade relationship.
+versioning:
+  scheme: none-published
+  current: null
+  docs: null
+  evidence: >-
+    No version identifier appears in any Helloworld URL, header or document. The trade portals are
+    PHP and ASP.NET web applications, not versioned API surfaces.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notice_period: null
+  evidence: >-
+    No deprecation, sunset, end-of-life or migration policy is published on any host. RFC 8594
+    Sunset/Deprecation headers cannot be checked because no API endpoint is reachable
+    unauthenticated.
+sla:
+  url: null
+  uptime_target: null
+  evidence: >-
+    No service level agreement, uptime target, credit scheme or support-response commitment is
+    published for any trade system. Franchise and membership agreements, which may contain them,
+    are not public.
+status_page: null
+status_page_evidence: >-
+  status.helloworldlimited.com.au returns 404 and status.readyrooms.com.au does not resolve. No
+  Statuspage.io, Atlassian, Instatus or equivalent property was found for any brand, and no
+  incident history, maintenance window or scheduled-outage notice is published on the corporate
+  site or any trade portal.
+changelog: null
+changelog_evidence: >-
+  No API or product changelog, release notes page or "what's new" feed exists on any Helloworld
+  host. The corporate WordPress site exposes an RSS feed at /feed/, which carries corporate news
+  rather than product or interface change.
+deprecated_operations: []
+corporate_disclosure_lifecycle:
+  note: >-
+    Not an API lifecycle. Recorded because it is the only dated, obligation-backed change feed
+    Helloworld operates, and because it is the channel through which a partner would actually
+    learn of a material change to the group.
+  asx_code: HLO
+  announcements: https://www.helloworldlimited.com.au/asx-announcements/
+  results: https://www.helloworldlimited.com.au/investors/
+  annual_reports: https://www.helloworldlimited.com.au/annual-reports/
+  governance: https://www.helloworldlimited.com.au/corporate-governance/
+  governing_policies:
+  - Continuous Disclosure Policy – Feb 2025
+  - Shareholder Communications Policy – Dec 2025
+  - Risk Management Policy
+  - Whistleblower Policy – Feb 2025
+  - Code of Ethics and Conduct – Aug 2025
+  - Anti-Bribery and Corruption Policy – Aug 2025
+  - Modern Slavery Statement
+  whistleblower_note: >-
+    The Whistleblower Policy is a corporate misconduct channel under the Corporations Act. It is
+    not a vulnerability disclosure programme and must not be treated as one — no security contact,
+    safe-harbour statement, bug bounty or coordinated disclosure process is published anywhere in
+    the estate.

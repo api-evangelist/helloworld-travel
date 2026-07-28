@@ -1,0 +1,159 @@
+generated: '2026-07-28'
+method: probed
+source: live DNS/TLS/HTTP probes of every Helloworld Travel Limited web and trade host
+summary: >-
+  Every Helloworld host probed negotiates TLS 1.3 and every one except expresstickets.com.au
+  returns HSTS with a one-year max-age. Email authentication is uneven across the estate: the
+  four brand domains that sit in front of travellers and agents (helloworld.com.au,
+  readyrooms.com.au, airtickets.com.au, expresstickets.com.au) all publish SPF and a delegated
+  DMARC record at p=reject via EasyDMARC, while the corporate domain helloworldlimited.com.au
+  publishes SPF but NO DMARC at all, and aotonline.net — the inbound trade booking engine —
+  publishes neither SPF nor DMARC. No domain in the estate is DNSSEC-signed. CAA is published
+  on three of six domains. Absence of a record is recorded here as data, not as an error.
+hosts:
+- host: www.helloworldlimited.com.au
+  role: corporate website
+  http_status: 200
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 16 02:43:16 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: policies.helloworldlimited.com.au
+  role: privacy and cookie policy host
+  http_status: 200
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 16 02:43:16 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: www.helloworld.com.au
+  role: consumer website (redirects to /Find-Your-Agent.html)
+  http_status: 301
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  8 01:32:30 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: www.readyrooms.com.au
+  role: ReadyRooms B2B hotel and activity booking, agent login
+  http_status: 200
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  6 06:04:20 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  note: covered by the wildcard certificate *.readyrooms.com.au
+- host: athena.readyrooms.com.au
+  role: ReadyRooms agent login application
+  http_status: 200
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  6 06:04:20 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: developer.readyrooms.com.au
+  role: provisioned but gated developer host
+  http_status: 401
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  6 06:04:20 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  note: >-
+    HTTP Basic on every path (WWW-Authenticate: Basic realm="Access is permitted to authorized
+    users"). HSTS is served on the 401 response itself.
+- host: www.aotonline.net
+  role: AOTonline.net inbound trade booking engine, agency-code login
+  http_status: 302
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 14 01:14:40 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: www.airtickets.com.au
+  role: Air Tickets / SmartTickets consolidation, agent login
+  http_status: 200
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep  7 01:12:43 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  note: host returns HTTP 200 with an empty body for every unknown path (soft 404)
+- host: expresstickets.com.au
+  role: Express Tickets consolidation
+  http_status: 403
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  9 04:59:20 2026 GMT
+  hsts: false
+  note: >-
+    Edge returns 403 to a scripted client on every path; no Strict-Transport-Security header was
+    present on that response.
+domains:
+- domain: helloworldlimited.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  spf_record: v=spf1 include:zoho.com ~all
+  dmarc: false
+  note: corporate domain publishes SPF with a soft fail and no DMARC record
+- domain: helloworld.com.au
+  dnssec: false
+  caa:
+  - 0 issue "comodoca.com"
+  - 0 issue "digicert.com"
+  - 0 issue "globalsign.com"
+  - 0 issue "letsencrypt.org"
+  - 0 issuewild "letsencrypt.org"
+  - 0 issue "amazon.com"
+  spf: true
+  spf_record: v=spf1 include:_spf.helloworld_com_au._d.easydmarc.pro -all
+  dmarc: true
+  dmarc_delegated: true
+  dmarc_policy: reject
+  dmarc_pct: 100
+- domain: readyrooms.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  spf_record: v=spf1 include:_spf.readyrooms_com_au._d.easydmarc.pro ~all
+  dmarc: true
+  dmarc_delegated: true
+  dmarc_policy: reject
+  dmarc_pct: 100
+  note: DMARC aggregate and forensic reporting is split between EasyDMARC and Proofpoint
+- domain: aotonline.net
+  dnssec: false
+  caa:
+  - 0 issue "letsencrypt.org"
+  - 0 issuewild "globalsign.com"
+  - 0 issuewild "letsencrypt.org"
+  - 0 issue "digicert.com"
+  - 0 issue "globalsign.com"
+  spf: false
+  dmarc: false
+  note: the inbound trade booking domain publishes neither SPF nor DMARC
+- domain: airtickets.com.au
+  dnssec: false
+  caa:
+  - 0 issue "globalsign.com"
+  - 0 issue "letsencrypt.org"
+  - 0 issuewild "globalsign.com"
+  - 0 issuewild "letsencrypt.org"
+  - 0 issue "digicert.com"
+  spf: true
+  spf_record: v=spf1 include:_spf.airtickets_com_au._d.easydmarc.pro -all
+  dmarc: true
+  dmarc_delegated: true
+  dmarc_policy: reject
+  dmarc_pct: 100
+- domain: expresstickets.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  spf_record: v=spf1 include:_spf.expresstickets_com_au._d.easydmarc.pro -all
+  dmarc: true
+  dmarc_delegated: true
+  dmarc_policy: reject
+  dmarc_pct: 100

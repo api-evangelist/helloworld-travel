@@ -1,0 +1,179 @@
+generated: '2026-07-28'
+method: probed
+source: live HTTP probes, 2026-07-28
+summary: >-
+  No /.well-known/ discovery document of any kind is published anywhere in the Helloworld Travel
+  Limited estate. Ten hosts were probed for security.txt, openid-configuration,
+  oauth-authorization-server, oauth-protected-resource, api-catalog, ai-plugin.json, llms.txt,
+  openapi.json and swagger.json. Every result is a hard 404, a 401 Basic-auth challenge, a 403
+  edge block, or a soft 404 — an HTTP 200 carrying the site's own HTML error page or an empty
+  body. Soft 404s are called out explicitly below because three hosts in this estate answer 200
+  for literally any path: www.helloworld.com.au redirects every unknown path to
+  /global/404?default, www.airtickets.com.au returns 200 with a zero-byte body, and
+  www.aotonline.net returns its 43KB template page. Every such 200 was byte-compared against a
+  control request for an invented path on the same host, and matched. The only genuinely served
+  discovery file found anywhere in the estate is the robots.txt on the AOTonline trade booking
+  engine, saved verbatim alongside this index. Absence is the finding, and it is consistent with
+  the closed API posture recorded in review.yml.
+paths_probed:
+- /.well-known/security.txt
+- /.well-known/openid-configuration
+- /.well-known/oauth-authorization-server
+- /.well-known/oauth-protected-resource
+- /.well-known/api-catalog
+- /.well-known/ai-plugin.json
+- /llms.txt
+- /openapi.json
+- /swagger.json
+- /robots.txt
+- /sitemap.xml
+control_method: >-
+  For every host, /.well-known/zzz-nonexistent-abc123 and /zzz-nonexistent-abc123 were requested
+  first; any 200 whose body length matched a control response is recorded as real_document: false.
+hosts:
+- host: https://www.helloworldlimited.com.au
+  role: corporate website (WordPress)
+  control: {status: 404}
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+  - {path: /swagger.json, status: 404}
+  - {path: /robots.txt, status: 404}
+  - {path: /sitemap.xml, status: 404}
+  note: >-
+    The only machine-readable surface on this host is the stock WordPress REST API at /wp-json/
+    (namespaces oembed/1.0, contact-form-7/v1, wp/v2). That is CMS infrastructure shipped by
+    WordPress, not a Helloworld product API, and it is deliberately not listed in apis[].
+- host: https://policies.helloworldlimited.com.au
+  role: privacy and cookie policy host
+  control: {status: 404}
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /robots.txt, status: 404}
+- host: https://www.helloworld.com.au
+  role: consumer website
+  control: {status: 200, note: "every unknown path redirects to /global/404?default"}
+  documents:
+  - {path: /.well-known/security.txt, status: 200, real_document: false, note: "soft 404"}
+  - {path: /.well-known/openid-configuration, status: 200, real_document: false, note: "soft 404"}
+  - {path: /.well-known/oauth-authorization-server, status: 200, real_document: false, note: "soft 404"}
+  - {path: /.well-known/oauth-protected-resource, status: 200, real_document: false, note: "soft 404"}
+  - {path: /.well-known/api-catalog, status: 200, real_document: false, note: "soft 404"}
+  - {path: /.well-known/ai-plugin.json, status: 200, real_document: false, note: "soft 404"}
+  - {path: /llms.txt, status: 200, real_document: false, note: "soft 404"}
+  - {path: /openapi.json, status: 200, real_document: false, note: "soft 404"}
+  - {path: /swagger.json, status: 200, real_document: false, note: "soft 404"}
+  - {path: /robots.txt, status: 404}
+  - {path: /sitemap.xml, status: 200, real_document: false, note: "soft 404"}
+- host: https://www.readyrooms.com.au
+  role: ReadyRooms B2B hotel and activity booking
+  control: {status: 404}
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+  - {path: /swagger.json, status: 404}
+  - {path: /robots.txt, status: 200, real_document: false, note: "zero-byte body"}
+  - {path: /sitemap.xml, status: 404}
+- host: https://athena.readyrooms.com.au
+  role: ReadyRooms agent login application
+  control: {status: 404}
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+  - {path: /swagger.json, status: 404}
+- host: https://developer.readyrooms.com.au
+  role: provisioned but gated developer host
+  control: {status: 401}
+  note: >-
+    Every path, including the whole /.well-known/ namespace, answers HTTP 401 with
+    WWW-Authenticate: Basic realm="Access is permitted to authorized users". Nothing about this
+    host's contents is observable from outside. It is a deliberately created host — it holds its
+    own DNS A record and is covered by *.readyrooms.com.au — not a wildcard catch-all.
+  documents:
+  - {path: /.well-known/security.txt, status: 401}
+  - {path: /.well-known/openid-configuration, status: 401}
+  - {path: /.well-known/oauth-authorization-server, status: 401}
+  - {path: /.well-known/oauth-protected-resource, status: 401}
+  - {path: /.well-known/api-catalog, status: 401}
+  - {path: /.well-known/ai-plugin.json, status: 401}
+  - {path: /llms.txt, status: 401}
+  - {path: /openapi.json, status: 401}
+  - {path: /swagger.json, status: 401}
+  - {path: /robots.txt, status: 401}
+- host: https://www.aotonline.net
+  role: AOTonline.net inbound trade booking engine
+  control: {status: 200, note: "unknown paths return the 43KB site template"}
+  documents:
+  - {path: /.well-known/security.txt, status: 200, real_document: false, note: "soft 404"}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /llms.txt, status: 200, real_document: false, note: "soft 404"}
+  - {path: /openapi.json, status: 404}
+  - {path: /swagger.json, status: 404}
+  - {path: /robots.txt, status: 200, real_document: true, file: helloworld-travel-aotonline-robots.txt}
+  - {path: /sitemap.xml, status: 200, real_document: false, note: "soft 404"}
+- host: https://www.airtickets.com.au
+  role: Air Tickets / SmartTickets consolidation
+  control: {status: 200, note: "every unknown path returns 200 with a zero-byte body"}
+  documents:
+  - {path: /.well-known/security.txt, status: 200, real_document: false, note: "soft 404, empty body"}
+  - {path: /.well-known/openid-configuration, status: 200, real_document: false, note: "soft 404, empty body"}
+  - {path: /.well-known/oauth-authorization-server, status: 200, real_document: false, note: "soft 404, empty body"}
+  - {path: /.well-known/oauth-protected-resource, status: 200, real_document: false, note: "soft 404, empty body"}
+  - {path: /.well-known/api-catalog, status: 200, real_document: false, note: "soft 404, empty body"}
+  - {path: /.well-known/ai-plugin.json, status: 200, real_document: false, note: "soft 404, empty body"}
+  - {path: /llms.txt, status: 200, real_document: false, note: "soft 404, empty body"}
+  - {path: /openapi.json, status: 200, real_document: false, note: "soft 404, empty body"}
+  - {path: /swagger.json, status: 200, real_document: false, note: "soft 404, empty body"}
+  - {path: /robots.txt, status: 200, real_document: false, note: "soft 404, empty body"}
+- host: https://expresstickets.com.au
+  role: Express Tickets consolidation
+  control: {status: 403}
+  note: the edge returns 403 to a scripted client on every path, including /
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/oauth-protected-resource, status: 403}
+  - {path: /.well-known/api-catalog, status: 403}
+  - {path: /.well-known/ai-plugin.json, status: 403}
+  - {path: /llms.txt, status: 403}
+  - {path: /openapi.json, status: 403}
+  - {path: /swagger.json, status: 403}
+- host: https://www.aotinbound.com
+  role: not a Helloworld property
+  control: {status: 200}
+  note: >-
+    Probed because third-party integrator listings name "AOT Group" as a hotel supplier. The
+    domain is a parked lander (every path returns a 114-byte redirect stub to /lander) and its
+    robots.txt / llms.txt / sitemap.xml are registrar-generated boilerplate, not Helloworld
+    content. Excluded from apis.yml.
+documents_found: 1
+well_known_documents_found: 0

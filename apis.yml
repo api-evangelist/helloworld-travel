@@ -38,6 +38,8 @@ modified: '2026-07-28'
 specificationVersion: '0.19'
 apis: []
 common:
+- type: DomainSecurity
+  url: security/helloworld-travel-domain-security.yml
 - type: Website
   url: https://www.helloworldlimited.com.au/
 - type: ConsumerWebsite
@@ -58,6 +60,22 @@ common:
   url: https://www.helloworldlimited.com.au/contact/
 - type: Blog
   url: https://www.helloworldlimited.com.au/feed/
+- type: About
+  url: https://www.helloworldlimited.com.au/about-us/
+- type: Careers
+  url: https://www.helloworldlimited.com.au/careers/
+- type: Partners
+  url: https://www.helloworldlimited.com.au/franchisees/
+- type: Announcements
+  url: https://www.helloworldlimited.com.au/asx-announcements/
+- type: WellKnown
+  url: well-known/helloworld-travel-well-known.yml
+- type: Conformance
+  url: conformance/helloworld-travel-conformance.yml
+- type: Lifecycle
+  url: lifecycle/helloworld-travel-lifecycle.yml
+- type: LLMsTxt
+  url: llms/helloworld-travel-llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,20 @@
+# /robots.txt file for [Aotonline]
+# Send constructive criticism to webhelp@aot.com.au 
+
+user-agent: *
+
+#utility directories 
+Disallow: /traffic/
+Disallow: /scripts/
+Disallow: /css/
+Disallow: /content/
+
+#pages except search results & brochure
+Disallow: /prepend.php
+Disallow: /accommodation/service-details.php
+Disallow: /itinerary.php
+Disallow: /payment.php
+Disallow: /receipt.php
+Disallow: terms_conds.php
+
+#site specific

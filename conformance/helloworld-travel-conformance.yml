@@ -1,0 +1,112 @@
+generated: '2026-07-28'
+method: searched
+source: >-
+  Helloworld Travel Limited public web estate and trade portals, probed 2026-07-28; no OpenAPI or
+  other machine-readable contract exists to derive from.
+summary: >-
+  Helloworld conforms to no published API, distribution or identity standard, because it publishes
+  no API. This file is a negative conformance record: each standard below was actively looked for
+  across the corporate site, the consumer site, the four trade portals and the gated developer
+  host, and none is claimed, referenced or observable. Australian travel peers do publish a
+  position on some of these — Corporate Travel Management maintains a public NDC page — so the
+  silence here is a finding rather than an absence of the concept in this market. The one standard
+  Helloworld is genuinely bound by is regulatory, not technical: the Australian Privacy Act 1988
+  and the Australian Privacy Principles, which the privacy policy invokes explicitly and which
+  supply the only documented route to get data back out of the group.
+standards:
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI or Swagger document is served on any host. /openapi.json, /swagger.json,
+    /v1/openapi.json, /api-docs, /docs and /redoc were probed against every corporate, consumer and
+    trade host; results are hard 404s, 401 Basic challenges, 403 edge blocks or soft 404s
+    (see well-known/helloworld-travel-well-known.yml).
+- id: asyncapi
+  conforms: false
+  evidence: no event, streaming or webhook surface is documented anywhere
+- id: graphql
+  conforms: false
+  evidence: /graphql probed on every trade host; all responses are 404 or the site's own HTML page
+- id: grpc
+  conforms: false
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No OAuth surface. developer.readyrooms.com.au challenges with HTTP Basic, not Bearer.
+    /.well-known/oauth-authorization-server and /.well-known/oauth-protected-resource are absent
+    on every host.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration absent on every host probed
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt absent on every host; the only 200s are soft 404s
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: no API, therefore no error envelope to inspect
+- id: rfc8594-sunset-header
+  conforms: false
+- id: iata-ndc
+  conforms: false
+  evidence: >-
+    Helloworld is an agency and consolidation group, not a carrier, so it holds no NDC capability
+    level of its own. No mention of NDC, New Distribution Capability, Offers and Orders, or an NDC
+    aggregation partner appears anywhere on helloworldlimited.com.au, the consumer site, or the
+    trade portals.
+- id: opentravel-ota
+  conforms: false
+  evidence: >-
+    No OpenTravel / OTA XML message set is referenced on any Helloworld surface. Third-party
+    travel-tech integrators (Pratra, Trawex, TechnoHeaven, BookingXML) list "AOT Group" as an
+    available hotel supplier connection and describe "dynamic rates for accommodation product,
+    supplied via XML connections", which indicates a private partner XML interface exists — but
+    that is a third-party marketing claim, the schema is not published, no standard is named, and
+    Helloworld itself makes no such statement. Recorded as unverified, not as conformance.
+- id: htng
+  conforms: false
+  evidence: no HTNG interface or membership claim found
+- id: iata-accreditation
+  conforms: true
+  evidence: >-
+    Not an API standard, but the one industry credential Helloworld states publicly. The Travel
+    Brokers network is described as holding "both TAANZ & IATA accreditation", and the air
+    consolidation business is built around IATA airline ticketing for "more than 100 international
+    airlines".
+  source: https://www.helloworldlimited.com.au/consolidation-brands/
+- id: australian-privacy-act-1988
+  conforms: true
+  evidence: >-
+    The privacy policy invokes the Privacy Act and the Australian Privacy Principles and names an
+    access route: "You may ask Helloworld for access to any personal information we hold about
+    you, subject to some exceptions in the Privacy Act." Requests go to
+    privacyofficer@helloworld.com.au. The policy does not address data portability or deletion and
+    makes no GDPR commitment.
+  source: https://policies.helloworldlimited.com.au/privacy-policy/
+- id: gdpr
+  conforms: false
+  evidence: no GDPR statement, DPA, or EU representative is published, despite European operations
+- id: soc2
+  conforms: false
+  evidence: no trust centre, certification page or audit report is published
+- id: iso27001
+  conforms: false
+  evidence: no certification claim found on any host
+- id: pci-dss
+  conforms: false
+  evidence: >-
+    AOTonline takes card payment (/payment.php, /receipt.php are Disallowed in its robots.txt), so
+    PCI DSS obligations almost certainly apply commercially, but no compliance claim, attestation
+    or SAQ level is published anywhere. Recorded as not-published, not as non-compliant.
+unverified_third_party_claims:
+- claim: AOT Group offers hotel supply via XML API connection
+  sources:
+  - https://www.pratra.com/api-partners/the-aot-group
+  - https://www.trawex.com/aot-group.php
+  - https://www.technoheaven.net/the-aot-group-xml-api-integrations.aspx
+  - https://www.bookingxml.com/aot-group.php
+  note: >-
+    Four independent travel-tech integrators list AOT Group as a connectable hotel supplier. None
+    publishes a schema, endpoint, WSDL, message set or standard name, and none of the pages links
+    to AOT-owned developer documentation; the Pratra page carries no technical content at all.
+    This is corroboration that a partner-only XML interface exists behind the trade relationship,
+    and nothing more. No artifact is derived from it.
