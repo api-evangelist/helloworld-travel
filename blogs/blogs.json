@@ -1,0 +1,14 @@
+{
+  "repo": "helloworld-travel",
+  "feeds": [
+    {
+      "source": "https://www.helloworldlimited.com.au/contact/",
+      "feed_url": "https://www.helloworldlimited.com.au/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-01T15:49:00Z"
+}
