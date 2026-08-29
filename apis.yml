@@ -19,6 +19,17 @@ description: >-
   but returns HTTP 401 with a Basic auth challenge on every path probed, so access
   is partner-only. There is no published exit path — the only documented way to get
   data back is a Privacy Act access request to the Helloworld Privacy Officer.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.helloworldlimited.com.au/wp-content/uploads/2018/10/helloworld_limited_favicon.png
 tags:
 - Travel
